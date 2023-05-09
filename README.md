@@ -13,7 +13,8 @@ With VizGPT, you can build visualizations step by step with chat interface. You 
 + [x] Natural language to data visualization
 + [x] Use chat context to edit your visualization. Allow user to change the chart if it is not they expected
 + [x] Explore the data step by step by chatting with visualizations.
-+ [x] Save the visualizations and chat history.
++ [x] Upload your own dataset (CSV) to make visulization.
++ [] Save the visualizations and chat history.
 + [ ] Allow user to use visulization editor (like [graphic-walker](https://github.com/Kanaries/graphic-walker) or [vega-editor](https://github.com/vega/editor)) to edit the visualization and show the edit to GPT to make better visualization as the user prefers.
 
 ## Chat to Viz Example
