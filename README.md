@@ -1,7 +1,6 @@
 # VizGPT: Make contextual data visualization with Chat Interface
 
-![VizGPT](https://github.com/ObservedObserver/viz-gpt/assets/22167673/c4201960-83c9-484a-a5ea-15f6a85d5837)
-
+https://github.com/ObservedObserver/viz-gpt/assets/22167673/a09032d3-f3c8-4cdf-ac14-89df8754fd9f
 
 
 Use GPT to generate visualization from dataset with natural language. You can edit the visualization in the contex step by step to make it more precise without retype the whole complex query.
@@ -31,6 +30,12 @@ With VizGPT, you can build visualizations step by step with chat interface. You 
 <img src="https://github.com/ObservedObserver/viz-gpt/assets/22167673/50fc05a3-7511-489d-bb6f-5e0b7568e9cf" width="68%" alt="vizapt-2" />
 
 <img src="https://github.com/ObservedObserver/viz-gpt/assets/22167673/5506e5f5-f209-4721-a2ee-61e59180f08f" width="68%" alt="vizapt-3" />
+
+![Xnapper-2023-05-10-00 28 07](https://github.com/ObservedObserver/viz-gpt/assets/22167673/9ffb763a-d18d-4867-a974-5ab02131ce1f)
+
+![Xnapper-2023-05-10-01 05 15](https://github.com/ObservedObserver/viz-gpt/assets/22167673/cd2d45c9-f0d4-431c-8ced-5c1228ad24a7)
+
+
 
 ### Add custom CSV file
 
