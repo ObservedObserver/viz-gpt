@@ -1,0 +1,42 @@
+interface PaginationProps {
+    from: number;
+    to: number;
+    total: number;
+    onPrev: () => void;
+    onNext: () => void;
+}
+export default function Pagination(props: PaginationProps) {
+    const { from, to, total, onNext, onPrev } = props;
+    return (
+        <nav
+            className="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-zinc-900 px-4 py-3 sm:px-6"
+            aria-label="Pagination"
+        >
+            <div className="hidden sm:block">
+                <p className="text-sm text-gray-800 dark:text-gray-100">
+                    Showing <span className="font-medium">{from}</span> to{" "}
+                    <span className="font-medium">{to}</span> of{" "}
+                    <span className="font-medium">{total}</span> results
+                </p>
+            </div>
+            <div className="flex flex-1 justify-between sm:justify-end">
+                <button
+                    onClick={() => {
+                        onPrev();
+                    }}
+                    className="relative inline-flex items-center rounded-md border border-gray-300 bg-white dark:bg-zinc-900 px-2.5 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                    Last
+                </button>
+                <button
+                    onClick={() => {
+                        onNext();
+                    }}
+                    className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white dark:bg-zinc-900  px-2.5 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+                >
+                    Next
+                </button>
+            </div>
+        </nav>
+    );
+}

@@ -1,6 +1,8 @@
+export type ISemanticType = 'quantitative' | 'nominal' | 'ordinal' | 'temporal';
+
 export interface IField {
     fid: string;
-    semanticType: string;
+    semanticType: ISemanticType;
 }
 
 export interface IRow {

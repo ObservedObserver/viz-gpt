@@ -12,12 +12,15 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
+    "@kanaries/web-data-loader": "^0.1.7",
     "@monaco-editor/react": "^4.5.1",
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/node": "^2.14.1",
+    "immer": "^10.0.1",
     "monaco-editor": "^0.38.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "styled-components": "^6.0.0-rc.1",
     "vega": "^5.25.0",
     "vega-embed": "^6.22.1",
     "vega-lite": "^5.9.0"
@@ -25,6 +28,7 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react": "^4.0.0",
