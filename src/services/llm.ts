@@ -1,3 +1,5 @@
+import { IField } from "../interface";
+
 export interface IMessage {
     role: string;
     content: string;
@@ -15,7 +17,7 @@ export interface IResponse {
 }
 
 export async function chatCompletation(
-    messages: IMessage[]
+    messages: IMessage[], metas: IField[]
 ): Promise<IResponse> {
     const url = `/api/vizchat`;
     const res = await fetch(url, {
@@ -25,6 +27,7 @@ export async function chatCompletation(
         },
         body: JSON.stringify({
             messages,
+            metas
         }),
     });
     const result = (await res.json()) as {

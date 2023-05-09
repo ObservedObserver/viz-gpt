@@ -5,6 +5,8 @@ import { matchQuote } from "./utils";
 import { IDataset } from "./interface";
 import VizChat from "./components/vizChat";
 import SelectMenu from "./components/selectMenu";
+import { PaperAirplaneIcon } from "@heroicons/react/20/solid";
+import Spinner from "./components/spinner";
 
 const EXAMPLE_DATASETS: { key: string; name: string; url: string }[] = [
     {
@@ -21,7 +23,6 @@ const EXAMPLE_DATASETS: { key: string; name: string; url: string }[] = [
 
 const HomePage = function HomePage() {
     const [userQuery, setUserQuery] = useState("");
-    // const [value, setValue] = useState("");
     const [loading, setLoading] = useState(false);
     const [dataset, setDataset] = useState<IDataset | null>(null);
     const [datasetKey, setDatasetKey] = useState<string>(
@@ -40,30 +41,13 @@ const HomePage = function HomePage() {
             });
     }, [datasetKey]);
 
-
     const startQuery = useCallback(() => {
         setLoading(true);
-        const systemMessage: IMessage = {
-            role: "system",
-            content: `You are a great assistant at vega-lite visualization creation. No matter what the user ask, you should always response with a valid vega-lite specification in JSON.
-
-                You should create the vega-lite specification based on user's query, do not contains key of data. Here is the instructions:
-    
-                Besides, Here are some requirements:
-                1. do not contains key of data.
-                2. if the user ask many times, you should generate the specification based on the previous context.
-                3. You should consider to aggregate the field if it is quantitative and the chart has a mark type of react, bar, line, area or arc.
-                4. the available fields in the dataset and their types are:
-                ${dataset?.fields
-                    .map((field) => `${field.fid} (${field.semanticType})`)
-                    .join(", ")}
-                `,
-        };
         const latestQuery: IMessage = {
             role: "user",
             content: userQuery,
         };
-        chatCompletation([systemMessage, ...chat, latestQuery])
+        chatCompletation([...chat, latestQuery], dataset?.fields ?? [])
             .then((res) => {
                 if (res.choices.length > 0) {
                     const spec = matchQuote(
@@ -80,13 +64,17 @@ const HomePage = function HomePage() {
                 setLoading(false);
                 setUserQuery("");
             });
-    }, [dataset?.fields, userQuery, chat]);
-
+    }, [userQuery, chat, dataset?.fields]);
 
     return (
         <div className="container mx-auto">
-            <h1 className="grow-0 shrink-0 text-center text-xl mt-4">VizGPT</h1>
-            <div className="flex">
+            <div className="text-5xl font-extrabold flex justify-center mt-8">
+                <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
+                    VizGPT
+                </h1>
+            </div>
+
+            <div className="flex items-bottom my-2">
                 <div>
                     <SelectMenu
                         label="Dataset"
@@ -103,18 +91,24 @@ const HomePage = function HomePage() {
                 <div className="right-0 py-8 flex">
                     <input
                         type="text"
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        className="block w-full rounded-l-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         placeholder="what visualization your want to draw from the dataset"
                         value={userQuery}
                         onChange={(e) => setUserQuery(e.target.value)}
                     />
                     <button
                         type="button"
-                        className="grow-0 rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex items-center grow-0 rounded-r-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={loading || userQuery.length === 0}
                         onClick={startQuery}
                     >
                         Visualize
+                        {
+                            !loading && <PaperAirplaneIcon className="w-4 ml-1" />
+                        }
+                        {
+                            loading && <Spinner />
+                        }
                     </button>
                 </div>
             </div>

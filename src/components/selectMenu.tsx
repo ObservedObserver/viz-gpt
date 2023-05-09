@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
@@ -22,7 +22,7 @@ export default function SelectMenu(props: MenuProps) {
         <Listbox value={selectedKey} onChange={onChange}>
             {({ open }) => (
                 <>
-                    <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">
+                    <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900 mr-2">
                         {label}
                     </Listbox.Label>
                     <div className="relative mt-2">
