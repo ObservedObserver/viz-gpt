@@ -16,3 +16,16 @@ Use GPT to generate visualization from dataset with natural language.
 ![vizgpt-2](https://github.com/ObservedObserver/viz-gpt/assets/22167673/50fc05a3-7511-489d-bb6f-5e0b7568e9cf)
 
 ![vizgpt-3](https://github.com/ObservedObserver/viz-gpt/assets/22167673/5506e5f5-f209-4721-a2ee-61e59180f08f)
+
+
+## Local Development
+
+Create a `.env` file at the root of the project with the following contents:
+
+```
+BASE_URL=<Azure OpenAI BaseURL>
+DEPLOYMENT_NAME=<Deployment Name>
+AZURE_OPENAI_KEY=<Your key>
+```
+
+Then run `vercel dev` or `npm run dev` to start the server at port 3000.
