@@ -2,11 +2,18 @@
 
 ![](https://img.shields.io/github/license/observedobserver/viz-gpt)
 
-Use GPT to generate visualization from dataset with natural language.
+Use GPT to generate visualization from dataset with natural language. There exist lots of great visualization product in the world, such as tableau, pygwalker. Traditional drag-and-drop visualization tool is hard to use for people who are not familiar with configs and viz/data transformations. For example, making a heatmap in tableau requires to make bin transformations to both axis, and then drag the measure to color. It is hard for people who are not familiar with data visualization to make a heatmap.
 
-## features
+Some text2viz tools accepts natural language to generate visualization. However, they are not flexible enough to allow user to edit the visualization. For example, if the user want to change the color of the heatmap, they have to retype the whole sentence.
+
+With VizGPT, you can build visualizations step by step with chat interface. You can edit/adjust visualizations in the context. It allows your to explore the data first without figuring out how to build complex visualization at begining, especially when you are not familiar with the data.
+
+
+## Features
 + [x] Natural language to data visualization
 + [x] Use chat context to edit your visualization. Allow user to change the chart if it is not they expected
++ [x] Explore the data step by step by chatting with visualizations.
++ [x] Save the visualizations and chat history.
 + [ ] Allow user to use visulization editor (like [graphic-walker](https://github.com/Kanaries/graphic-walker) or [vega-editor](https://github.com/vega/editor)) to edit the visualization and show the edit to GPT to make better visualization as the user prefers.
 
 ## Chat to Viz Example
