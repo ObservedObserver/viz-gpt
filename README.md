@@ -1,6 +1,7 @@
 # VizGPT: Build visualization with Chat Interface
 
-![VizGPT](https://github.com/ObservedObserver/viz-gpt/assets/22167673/4cb6b9fd-b07e-4931-8244-6ca30ee6bbe0)
+![VizGPT](https://github.com/ObservedObserver/viz-gpt/assets/22167673/c4201960-83c9-484a-a5ea-15f6a85d5837)
+
 
 
 Use GPT to generate visualization from dataset with natural language. There exist lots of great visualization product in the world, such as tableau, pygwalker. Traditional drag-and-drop visualization tool is hard to use for people who are not familiar with configs and viz/data transformations. For example, making a heatmap in tableau requires to make bin transformations to both axis, and then drag the measure to color. It is hard for people who are not familiar with data visualization to make a heatmap.
@@ -25,6 +26,13 @@ With VizGPT, you can build visualizations step by step with chat interface. You 
 ![vizgpt-2](https://github.com/ObservedObserver/viz-gpt/assets/22167673/50fc05a3-7511-489d-bb6f-5e0b7568e9cf)
 
 ![vizgpt-3](https://github.com/ObservedObserver/viz-gpt/assets/22167673/5506e5f5-f209-4721-a2ee-61e59180f08f)
+
+### Add custom CSV file
+
+Click `upload csv` button to add your own data. You can view or edit your data's metas at data view. The metas is infered automatically by default, you can edit it anytime you want to make the visualization more precise.
+
+![Xnapper-2023-05-10-00 28 51](https://github.com/ObservedObserver/viz-gpt/assets/22167673/a490e364-bcd1-418f-80eb-62e47faf4330)
+
 
 
 ## Local Development
