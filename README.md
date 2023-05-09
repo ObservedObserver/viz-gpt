@@ -1,6 +1,7 @@
-# viz-gpt
+# VizGPT: Build visualization with Chat Interface
 
-![](https://img.shields.io/github/license/observedobserver/viz-gpt)
+![VizGPT](https://github.com/ObservedObserver/viz-gpt/assets/22167673/4cb6b9fd-b07e-4931-8244-6ca30ee6bbe0)
+
 
 Use GPT to generate visualization from dataset with natural language. There exist lots of great visualization product in the world, such as tableau, pygwalker. Traditional drag-and-drop visualization tool is hard to use for people who are not familiar with configs and viz/data transformations. For example, making a heatmap in tableau requires to make bin transformations to both axis, and then drag the measure to color. It is hard for people who are not familiar with data visualization to make a heatmap.
 
