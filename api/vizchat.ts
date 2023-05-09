@@ -50,6 +50,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
             },
             body: JSON.stringify({
                 messages: [systemMessage, ...messages],
+                temperature: 0.05
             }),
         });
         const data = (await response.json()) as IResponseData;
