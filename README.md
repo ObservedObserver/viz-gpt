@@ -42,6 +42,7 @@ Click `upload csv` button to add your own data. You can view or edit your data's
 
 ## Local Development
 
+#### step 1
 Create a `.env` file at the root of the project with the following contents:
 
 ```
@@ -49,5 +50,15 @@ BASE_URL=<Azure OpenAI BaseURL>
 DEPLOYMENT_NAME=<Deployment Name>
 AZURE_OPENAI_KEY=<Your key>
 ```
+
+#### step 2
+
+Install dependencies:
+
+```bash
+yarn install
+```
+
+#### step 3
 
 Then run `vercel dev` or `npm run dev` to start the server at port 3000.
