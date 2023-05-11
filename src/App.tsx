@@ -5,7 +5,7 @@ import { matchQuote } from "./utils";
 import { IDataset } from "./interface";
 import VizChat from "./components/vizChat";
 import SelectMenu from "./components/selectMenu";
-import { PaperAirplaneIcon } from "@heroicons/react/20/solid";
+import { PaperAirplaneIcon, TrashIcon } from "@heroicons/react/20/solid";
 import Spinner from "./components/spinner";
 import DatasetCreation from "./components/datasetCreation";
 import DataTable from "./components/datasetCreation/dataTable";
@@ -53,8 +53,7 @@ const HomePage = function HomePage() {
 
     useEffect(() => {
         const currentDatasetInfo =
-            dsList.find((dataset) => dataset.key === datasetKey) ??
-            dsList[0];
+            dsList.find((dataset) => dataset.key === datasetKey) ?? dsList[0];
         if (currentDatasetInfo.type === "demo") {
             fetch(currentDatasetInfo.url)
                 .then((res) => res.json())
@@ -90,6 +89,10 @@ const HomePage = function HomePage() {
                 setUserQuery("");
             });
     }, [userQuery, chat, dataset?.fields]);
+
+    const clearChat = useCallback(() => {
+        setChat([]);
+    }, [])
 
     return (
         <div className="container mx-auto">
@@ -129,16 +132,16 @@ const HomePage = function HomePage() {
                     <span className="isolate inline-flex rounded-md shadow-sm">
                         <button
                             type="button"
-                            className="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                            className={`relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${pivotKey === 'viz' ? 'bg-indigo-300 border-indigo-300' : ''}`}
                             onClick={() => {
                                 setPivotKey("viz");
                             }}
                         >
-                            Visualization
+                            Chat to Viz
                         </button>
                         <button
                             type="button"
-                            className="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10"
+                            className={`relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${pivotKey === 'data' ? 'bg-indigo-300 border-indigo-300' : ''}`}
                             onClick={() => {
                                 setPivotKey("data");
                             }}
@@ -152,9 +155,20 @@ const HomePage = function HomePage() {
                 <div className="flex flex-col space-between">
                     {dataset && <VizChat dataset={dataset} messages={chat} />}
                     <div className="right-0 py-8 flex">
+                        <button
+                            type="button"
+                            className="flex items-center grow-0 rounded-l-md border border-gray-300 px-2.5 py-1.5 text-sm text-gray-500 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled={loading}
+                            onClick={clearChat}
+                        >
+                            Clear
+                            {!loading && (
+                                <TrashIcon className="w-4 ml-1" />
+                            )}
+                        </button>
                         <input
                             type="text"
-                            className="block w-full rounded-l-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             placeholder="what visualization your want to draw from the dataset"
                             value={userQuery}
                             onChange={(e) => setUserQuery(e.target.value)}
@@ -174,21 +188,28 @@ const HomePage = function HomePage() {
                     </div>
                 </div>
             )}
-            {
-                pivotKey === 'data' && <div>
-                    {
-                        dataset && <DataTable data={dataset.dataSource} metas={dataset.fields} onMetaChange={(fid, fIndex, meta) => {
-                            const nextDataset = produce(dataset, (draft) => {
-                                draft.fields[fIndex] = {
-                                    ...draft.fields[fIndex],
-                                    ...meta,
-                                };
-                            });
-                            setDataset(nextDataset);
-                        }} />
-                    }
+            {pivotKey === "data" && (
+                <div>
+                    {dataset && (
+                        <DataTable
+                            data={dataset.dataSource}
+                            metas={dataset.fields}
+                            onMetaChange={(fid, fIndex, meta) => {
+                                const nextDataset = produce(
+                                    dataset,
+                                    (draft) => {
+                                        draft.fields[fIndex] = {
+                                            ...draft.fields[fIndex],
+                                            ...meta,
+                                        };
+                                    }
+                                );
+                                setDataset(nextDataset);
+                            }}
+                        />
+                    )}
                 </div>
-            }
+            )}
         </div>
     );
 };
