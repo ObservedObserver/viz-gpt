@@ -10,6 +10,7 @@ import Spinner from "./components/spinner";
 import DatasetCreation from "./components/datasetCreation";
 import DataTable from "./components/datasetCreation/dataTable";
 import { produce } from "immer";
+import { useNotification } from "./components/notify/useNotification";
 
 type DSItem =
     | {
@@ -50,6 +51,7 @@ const HomePage = function HomePage() {
         EXAMPLE_DATASETS[0].key
     );
     const [chat, setChat] = useState<IMessage[]>([]);
+    const { notify } = useNotification();
 
     useEffect(() => {
         const currentDatasetInfo =
@@ -59,11 +61,17 @@ const HomePage = function HomePage() {
                 .then((res) => res.json())
                 .then((res) => {
                     setDataset(res);
+                }).catch(() => {
+                    notify({
+                        title: "Error",
+                        message: "Dataset not found",
+                        type: "error",
+                    }, 3000);
                 });
         } else {
             setDataset(currentDatasetInfo.dataset);
         }
-    }, [datasetKey, dsList]);
+    }, [datasetKey, dsList, notify]);
 
     const startQuery = useCallback(() => {
         setLoading(true);
@@ -81,14 +89,23 @@ const HomePage = function HomePage() {
                     );
                     if (spec) {
                         setChat([...chat, latestQuery, res.choices[0].message]);
+                    } else {
+                        throw new Error('No visualization matches your instruction.')
                     }
                 }
+            })
+            .catch(err => {
+                notify({
+                    title: "Error",
+                    message: err.message,
+                    type: "error",
+                }, 3000);
             })
             .finally(() => {
                 setLoading(false);
                 setUserQuery("");
             });
-    }, [userQuery, chat, dataset?.fields]);
+    }, [userQuery, chat, dataset?.fields, notify]);
 
     const clearChat = useCallback(() => {
         setChat([]);
