@@ -96,7 +96,8 @@ const HomePage = function HomePage() {
                         setChat([...chat, latestQuery, res.choices[0].message]);
                     } else {
                         throw new Error(
-                            "No visualization matches your instruction.\n" + res.choices[0].message.content
+                            "No visualization matches your instruction.\n" +
+                                res.choices[0].message.content
                         );
                     }
                 }
@@ -197,7 +198,25 @@ const HomePage = function HomePage() {
                         />
                     )}
                     {dataset && chat.length > 0 && (
-                        <VizChat dataset={dataset} messages={chat} />
+                        <VizChat
+                            dataset={dataset}
+                            messages={chat}
+                            onDelete={(message, mIndex) => {
+                                if (message.role === "user") {
+                                    setChat((c) => {
+                                        const newChat = [...c];
+                                        newChat.splice(mIndex, 2);
+                                        return newChat;
+                                    });
+                                } else if (message.role === 'assistant') {
+                                    setChat((c) => {
+                                        const newChat = [...c];
+                                        newChat.splice(mIndex - 1, 2);
+                                        return newChat;
+                                    });
+                                }
+                            }}
+                        />
                     )}
                     <div className="right-0 py-8 flex">
                         <button

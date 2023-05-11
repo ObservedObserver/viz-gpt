@@ -3,16 +3,17 @@ import { IDataset } from "../interface";
 import { IMessage } from "../services/llm";
 import { getValidVegaSpec } from "../utils";
 import ReactVega from "./react-vega";
-import { UserIcon } from "@heroicons/react/20/solid";
+import { TrashIcon, UserIcon } from "@heroicons/react/20/solid";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 
 interface VizChatProps {
     messages: IMessage[];
     dataset: IDataset;
+    onDelete?: (message: IMessage, mIndex: number) => void;
 }
 
-const VizChat: React.FC<VizChatProps> = ({ messages, dataset }) => {
-    const container = useRef<HTMLDivElement>(null)
+const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete }) => {
+    const container = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (container.current) {
             container.current.scrollTop = container.current.scrollHeight;
@@ -41,6 +42,15 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset }) => {
                                         data={dataset.dataSource ?? []}
                                     />
                                 </div>
+                                <div className="float-right">
+                                    <TrashIcon
+                                        className="w-4 text-gray-500 cursor-pointer"
+                                        onClick={() => {
+                                            onDelete &&
+                                                onDelete(message, index);
+                                        }}
+                                    />
+                                </div>
                             </div>
                         );
                     }
@@ -54,6 +64,14 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset }) => {
                         </div>
                         <div className="grow pl-8">
                             <p>{message.content}</p>
+                        </div>
+                        <div className="float-right">
+                            <TrashIcon
+                                className="w-4 text-gray-500 cursor-pointer"
+                                onClick={() => {
+                                    onDelete && onDelete(message, index);
+                                }}
+                            />
                         </div>
                     </div>
                 );
