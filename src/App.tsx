@@ -11,6 +11,7 @@ import DatasetCreation from "./components/datasetCreation";
 import DataTable from "./components/datasetCreation/dataTable";
 import { produce } from "immer";
 import { useNotification } from "./components/notify/useNotification";
+import { WelcomePrompt } from "./components/welcomePrompt";
 
 type DSItem =
     | {
@@ -61,12 +62,16 @@ const HomePage = function HomePage() {
                 .then((res) => res.json())
                 .then((res) => {
                     setDataset(res);
-                }).catch(() => {
-                    notify({
-                        title: "Error",
-                        message: "Dataset not found",
-                        type: "error",
-                    }, 3000);
+                })
+                .catch(() => {
+                    notify(
+                        {
+                            title: "Error",
+                            message: "Dataset not found",
+                            type: "error",
+                        },
+                        3000
+                    );
                 });
         } else {
             setDataset(currentDatasetInfo.dataset);
@@ -90,16 +95,21 @@ const HomePage = function HomePage() {
                     if (spec) {
                         setChat([...chat, latestQuery, res.choices[0].message]);
                     } else {
-                        throw new Error('No visualization matches your instruction.')
+                        throw new Error(
+                            "No visualization matches your instruction.\n" + res.choices[0].message.content
+                        );
                     }
                 }
             })
-            .catch(err => {
-                notify({
-                    title: "Error",
-                    message: err.message,
-                    type: "error",
-                }, 3000);
+            .catch((err) => {
+                notify(
+                    {
+                        title: "Error",
+                        message: err.message,
+                        type: "error",
+                    },
+                    3000
+                );
             })
             .finally(() => {
                 setLoading(false);
@@ -109,7 +119,7 @@ const HomePage = function HomePage() {
 
     const clearChat = useCallback(() => {
         setChat([]);
-    }, [])
+    }, []);
 
     return (
         <div className="container mx-auto">
@@ -149,7 +159,11 @@ const HomePage = function HomePage() {
                     <span className="isolate inline-flex rounded-md shadow-sm">
                         <button
                             type="button"
-                            className={`relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${pivotKey === 'viz' ? 'bg-indigo-300 border-indigo-300' : ''}`}
+                            className={`relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                                pivotKey === "viz"
+                                    ? "bg-indigo-300 border-indigo-300"
+                                    : ""
+                            }`}
                             onClick={() => {
                                 setPivotKey("viz");
                             }}
@@ -158,7 +172,11 @@ const HomePage = function HomePage() {
                         </button>
                         <button
                             type="button"
-                            className={`relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${pivotKey === 'data' ? 'bg-indigo-300 border-indigo-300' : ''}`}
+                            className={`relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                                pivotKey === "data"
+                                    ? "bg-indigo-300 border-indigo-300"
+                                    : ""
+                            }`}
                             onClick={() => {
                                 setPivotKey("data");
                             }}
@@ -170,7 +188,17 @@ const HomePage = function HomePage() {
             </div>
             {pivotKey === "viz" && (
                 <div className="flex flex-col space-between">
-                    {dataset && <VizChat dataset={dataset} messages={chat} />}
+                    {dataset && chat.length === 0 && (
+                        <WelcomePrompt
+                            metas={dataset.fields}
+                            onPromptClick={(p) => {
+                                setUserQuery(p);
+                            }}
+                        />
+                    )}
+                    {dataset && chat.length > 0 && (
+                        <VizChat dataset={dataset} messages={chat} />
+                    )}
                     <div className="right-0 py-8 flex">
                         <button
                             type="button"
@@ -179,9 +207,7 @@ const HomePage = function HomePage() {
                             onClick={clearChat}
                         >
                             Clear
-                            {!loading && (
-                                <TrashIcon className="w-4 ml-1" />
-                            )}
+                            {!loading && <TrashIcon className="w-4 ml-1" />}
                         </button>
                         <input
                             type="text"

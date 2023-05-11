@@ -52,6 +52,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         \`\`\`
         ${messages[messages.length - 1].content}
         \`\`\`
+        If there is no valid vega-lite specification or the instruction is not clear, you can recommend a chart from the given dataset and print in vega-lite JSON string.
         `;
     }
     try {
