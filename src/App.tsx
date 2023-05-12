@@ -180,9 +180,9 @@ const HomePage = function HomePage() {
                     <span className="isolate inline-flex rounded-md shadow-sm">
                         <button
                             type="button"
-                            className={`relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                            className={`relative inline-flex items-center rounded-l-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
                                 pivotKey === "viz"
-                                    ? "bg-indigo-300 border-indigo-300"
+                                    ? "bg-indigo-500 border-indigo-500 text-white"
                                     : ""
                             }`}
                             onClick={() => {
@@ -193,9 +193,9 @@ const HomePage = function HomePage() {
                         </button>
                         <button
                             type="button"
-                            className={`relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                            className={`relative -ml-px inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
                                 pivotKey === "data"
-                                    ? "bg-indigo-300 border-indigo-300"
+                                    ? "bg-indigo-500 border-indigo-500 text-white"
                                     : ""
                             }`}
                             onClick={() => {

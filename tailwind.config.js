@@ -6,5 +6,10 @@ export default {
     theme: {
         extend: {},
     },
+    safelist: [
+        {
+            pattern: /(bg|border)-(indigo)-([1-9]00)/,
+        }
+    ],
     plugins: [forms],
 };
