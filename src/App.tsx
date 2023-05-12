@@ -255,6 +255,11 @@ const HomePage = function HomePage() {
                             placeholder="what visualization your want to draw from the dataset"
                             value={userQuery}
                             onChange={(e) => setUserQuery(e.target.value)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && loading === false && userQuery.length > 0) {
+                                    startQuery();
+                                }
+                            }}
                         />
                         <button
                             type="button"
