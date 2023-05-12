@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
 import { useCallback, useEffect, useState } from "react";
+import { track } from '@vercel/analytics';
 import { IMessage, chatCompletation } from "./services/llm";
 import { matchQuote } from "./utils";
 import { IDataset } from "./interface";
@@ -84,7 +85,9 @@ const HomePage = function HomePage() {
             role: "user",
             content: userQuery,
         };
-        chatCompletation([...chat, latestQuery], dataset?.fields ?? [])
+        const fields = dataset?.fields ?? [];
+        track('query', { query: userQuery, chatSize: chat.length, keys: fields.map(f => f.fid).join(',') })
+        chatCompletation([...chat, latestQuery], fields)
             .then((res) => {
                 if (res.choices.length > 0) {
                     const spec = matchQuote(
@@ -116,7 +119,7 @@ const HomePage = function HomePage() {
                 setLoading(false);
                 setUserQuery("");
             });
-    }, [userQuery, chat, dataset?.fields, notify]);
+    }, [userQuery, chat, dataset, notify]);
 
     const clearChat = useCallback(() => {
         setChat([]);
