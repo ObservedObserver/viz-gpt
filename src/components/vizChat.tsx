@@ -3,16 +3,17 @@ import { IDataset } from "../interface";
 import { IMessage } from "../services/llm";
 import { getValidVegaSpec } from "../utils";
 import ReactVega from "./react-vega";
-import { TrashIcon, UserIcon } from "@heroicons/react/20/solid";
+import { HandThumbDownIcon, HandThumbUpIcon, TrashIcon, UserIcon } from "@heroicons/react/20/solid";
 import { CpuChipIcon } from "@heroicons/react/24/outline";
 
 interface VizChatProps {
     messages: IMessage[];
     dataset: IDataset;
     onDelete?: (message: IMessage, mIndex: number) => void;
+    onUserFeedback?: (messagePair: IMessage[], mIndex: number, action: string) => void;
 }
 
-const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete }) => {
+const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFeedback }) => {
     const container = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (container.current) {
@@ -20,11 +21,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete }) => {
         }
     }, [messages]);
     return (
-        <div
-            className="border-2 border-zinc-100 overflow-y-auto"
-            ref={container}
-            style={{ maxHeight: "80vh" }}
-        >
+        <div className="border-2 border-zinc-100 overflow-y-auto" ref={container} style={{ maxHeight: "80vh" }}>
             {messages.map((message, index) => {
                 if (message.role === "assistant") {
                     const spec = getValidVegaSpec(message.content);
@@ -37,17 +34,25 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete }) => {
                                     </div>
                                 </div>
                                 <div className="grow pl-8">
-                                    <ReactVega
-                                        spec={spec}
-                                        data={dataset.dataSource ?? []}
-                                    />
+                                    <ReactVega spec={spec} data={dataset.dataSource ?? []} />
                                 </div>
-                                <div className="float-right">
-                                    <TrashIcon
-                                        className="w-4 text-gray-500 cursor-pointer"
+                                <div className="float-right flex gap-4 items-start">
+                                    <HandThumbUpIcon
+                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
                                         onClick={() => {
-                                            onDelete &&
-                                                onDelete(message, index);
+                                            onUserFeedback && onUserFeedback([messages[index - 1] ,message], index, "like");
+                                        }}
+                                    />
+                                    <HandThumbDownIcon
+                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                        onClick={() => {
+                                            onUserFeedback && onUserFeedback([messages[index - 1] ,message], index, "dislike");
+                                        }}
+                                    />
+                                    <TrashIcon
+                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                        onClick={() => {
+                                            onDelete && onDelete(message, index);
                                         }}
                                     />
                                 </div>
@@ -67,7 +72,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete }) => {
                         </div>
                         <div className="float-right">
                             <TrashIcon
-                                className="w-4 text-gray-500 cursor-pointer"
+                                className="w-4 text-gray-500 cursor-pointer hover:scale-125"
                                 onClick={() => {
                                     onDelete && onDelete(message, index);
                                 }}

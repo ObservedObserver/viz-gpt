@@ -10,6 +10,10 @@
     "preview": "vite preview",
     "dev:vercel": "vercel dev"
   },
+  "prettier": {
+    "tabWidth": 4,
+    "printWidth": 120
+  },
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",

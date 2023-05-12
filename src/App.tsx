@@ -125,6 +125,19 @@ const HomePage = function HomePage() {
         setChat([]);
     }, []);
 
+    const feedbackHandler = useCallback(
+        (messages: IMessage[], mIndex: number, action: string) => {
+            // todo: implement feedback handler
+            track('feedback', { query: messages[0]?.content, ans: messages[1]?.content, action })
+            notify({
+                title: "Feedback",
+                message: "Thanks for your feedback!",
+                type: "success",
+            }, 1000)
+        },
+        [notify]
+    );
+
     return (
         <div className="container mx-auto">
             <div className="text-5xl font-extrabold flex justify-center mt-8">
@@ -219,6 +232,7 @@ const HomePage = function HomePage() {
                                     });
                                 }
                             }}
+                            onUserFeedback={feedbackHandler}
                         />
                     )}
                     <div className="right-0 py-8 flex">

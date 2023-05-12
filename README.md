@@ -24,6 +24,8 @@ With VizGPT, you can build visualizations step by step with chat interface. You 
 + [ ] Save the visualizations and chat history.
 + [ ] Allow user to use visulization editor (like [graphic-walker](https://github.com/Kanaries/graphic-walker) or [vega-editor](https://github.com/vega/editor)) to edit the visualization and show the edit to GPT to make better visualization as the user prefers.
 
+> vizGPT now is good at draw data visualizations, not data transformations/prepare/computation. You can use other tools like Kanaries/RATH to prepare the data first, and then use vizGPT to draw the visualization.
+
 ## Chat to Viz Example
 <img src="https://github.com/ObservedObserver/viz-gpt/assets/22167673/3788bb64-9441-4c1a-b709-307f9bc47e3d" width="68%" alt="vizapt-1" />
 
