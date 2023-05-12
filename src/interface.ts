@@ -13,3 +13,4 @@ export interface IDataset {
     fields: IField[];
     dataSource: IRow[];
 }
+export type IDarkMode = 'media' | 'light' | 'dark';
