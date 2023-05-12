@@ -13,7 +13,7 @@ export function WelcomePrompt(props: WelcomePromptProps) {
     const prompts: string[] = [
         `Show the distribution of ${measure ? measure.fid : metas[0].fid}.`,
         `How ${measure.fid} diffs in ${dimension.fid} ?`,
-        `Draw a chart from the data.`,
+        `Recommend a random chart from this dataset for me.`,
     ];
     return (
         <div className="mx-auto grid grid-cols-3 py-4 text-sm">

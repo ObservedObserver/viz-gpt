@@ -52,8 +52,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         \`\`\`
         ${messages[messages.length - 1].content}
         \`\`\`
-        If there is no valid vega-lite specification or the instruction is not clear, you can recommend a chart from the given dataset and print in vega-lite JSON string.
         `;
+        //  If there is no valid vega-lite specification or the instruction is not clear, you can recommend a chart from the given dataset and print in vega-lite JSON string.
     }
     try {
         const url = `${process.env.BASE_URL}/openai/deployments/${process.env.DEPLOYMENT_NAME}/chat/completions?api-version=2023-03-15-preview`;
