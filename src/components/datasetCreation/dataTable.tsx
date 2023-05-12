@@ -73,7 +73,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
     const to = Math.min((pageIndex + 1) * size, data.length - 1);
 
     return (
-        <Container className="light rounded border-gray-200 dark:border-gray-700 border">
+        <Container className="rounded border-gray-200 dark:border-gray-700 border">
             <Pagination
                 total={data.length}
                 from={from + 1}

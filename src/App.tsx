@@ -143,7 +143,7 @@ const HomePage = function HomePage() {
     );
 
     return (
-        <div className="container mx-auto">
+        <div className="container mx-auto dark:bg-zinc-900 dark:text-gray-50">
             <div className="text-5xl font-extrabold flex justify-center mt-8">
                 <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                     VizGPT
@@ -180,9 +180,9 @@ const HomePage = function HomePage() {
                     <span className="isolate inline-flex rounded-md shadow-sm">
                         <button
                             type="button"
-                            className={`relative inline-flex items-center rounded-l-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                            className={`relative inline-flex items-center rounded-l-md px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-50 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 hover:bg-indigo-500 hover:text-white focus:z-10 ${
                                 pivotKey === "viz"
-                                    ? "bg-indigo-500 border-indigo-500 text-white"
+                                    ? "bg-indigo-600 border-indigo-600 text-white"
                                     : ""
                             }`}
                             onClick={() => {
@@ -193,9 +193,9 @@ const HomePage = function HomePage() {
                         </button>
                         <button
                             type="button"
-                            className={`relative -ml-px inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-indigo-500 hover:text-white focus:z-10 ${
+                            className={`relative -ml-px inline-flex items-center rounded-r-md px-3 py-2 text-sm font-semibold text-gray-900 dark:text-gray-50 ring-1 ring-inset ring-gray-300 dark:ring-gray-500 hover:bg-indigo-500 hover:text-white focus:z-10 ${
                                 pivotKey === "data"
-                                    ? "bg-indigo-500 border-indigo-500 text-white"
+                                    ? "bg-indigo-600 border-indigo-600 text-white"
                                     : ""
                             }`}
                             onClick={() => {
@@ -242,7 +242,7 @@ const HomePage = function HomePage() {
                     <div className="right-0 py-8 flex">
                         <button
                             type="button"
-                            className="flex items-center grow-0 rounded-l-md border border-gray-300 px-2.5 py-1.5 text-sm text-gray-500 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex items-center grow-0 rounded-l-md border border-gray-300 dark:border-gray-500 px-2.5 py-1.5 text-sm text-gray-500 dark:text-gray-500 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
                             disabled={loading}
                             onClick={clearChat}
                         >
@@ -251,7 +251,7 @@ const HomePage = function HomePage() {
                         </button>
                         <input
                             type="text"
-                            className="block w-full border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="block w-full border-0 py-1.5 text-gray-900 dark:text-gray-50 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-500 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 dark:bg-gray-900"
                             placeholder="what visualization your want to draw from the dataset"
                             value={userQuery}
                             onChange={(e) => setUserQuery(e.target.value)}

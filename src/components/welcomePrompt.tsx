@@ -26,7 +26,7 @@ export function WelcomePrompt(props: WelcomePromptProps) {
                             }
                         }}
                         key={pIndex}
-                        className="border border-gray-200 p-4 m-2 rounded-md text-gray-700 hover:shadow-lg cursor-pointer"
+                        className="border border-gray-200 dark:border-gray-700 p-4 m-2 rounded-md text-gray-700 dark:text-gray-200 hover:shadow-lg cursor-pointer"
                     >
                         <p>{prompt}</p>
                     </div>

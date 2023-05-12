@@ -22,7 +22,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
         }
     }, [messages]);
     return (
-        <div className="border-2 border-zinc-100 overflow-y-auto" ref={container} style={{ maxHeight: "80vh" }}>
+        <div className="border-2 border-zinc-100 dark:border-zinc-800 overflow-y-auto" ref={container} style={{ maxHeight: "80vh" }}>
             {messages.map((message, index) => {
                 if (message.role === "assistant") {
                     const spec = getValidVegaSpec(message.content);
@@ -39,21 +39,21 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
                                 </div>
                                 <div className="float-right flex gap-4 items-start">
                                     <HandThumbUpIcon
-                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                        className="w-4 text-gray-500 dark:text-gray-300 cursor-pointer hover:scale-125"
                                         onClick={() => {
                                             onUserFeedback &&
                                                 onUserFeedback([messages[index - 1], message], index, "like");
                                         }}
                                     />
                                     <HandThumbDownIcon
-                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                        className="w-4 text-gray-500 dark:text-gray-300 cursor-pointer hover:scale-125"
                                         onClick={() => {
                                             onUserFeedback &&
                                                 onUserFeedback([messages[index - 1], message], index, "dislike");
                                         }}
                                     />
                                     <TrashIcon
-                                        className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                        className="w-4 text-gray-500 dark:text-gray-300 cursor-pointer hover:scale-125"
                                         onClick={() => {
                                             onDelete && onDelete(message, index);
                                         }}
@@ -84,7 +84,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
                     }
                 }
                 return (
-                    <div className="p-4 bg-zinc-100 flex" key={index}>
+                    <div className="p-4 bg-zinc-100 dark:bg-zinc-800 flex" key={index}>
                         <div className="grow-0">
                             <div className="inline-block h-10 w-10 rounded-full mx-4 bg-green-500 text-white flex items-center justify-center">
                                 <UserIcon className="w-6" />
@@ -95,7 +95,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
                         </div>
                         <div className="float-right">
                             <TrashIcon
-                                className="w-4 text-gray-500 cursor-pointer hover:scale-125"
+                                className="w-4 text-gray-500 dark:text-gray-300 cursor-pointer hover:scale-125"
                                 onClick={() => {
                                     onDelete && onDelete(message, index);
                                 }}
