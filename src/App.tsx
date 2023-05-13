@@ -148,7 +148,11 @@ const HomePage = function HomePage() {
                 <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-violet-500">
                     VizGPT
                 </h1>
+                
             </div>
+            <p className="text-center my-2">
+                Make contextual data visualization with Chat Interface from tabular datasets.
+            </p>
 
             <div className="flex items-end my-2">
                 <div>
