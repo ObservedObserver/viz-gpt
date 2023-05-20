@@ -20,6 +20,8 @@ export interface IResponseData {
     choices: { message: { role: string; content: string } }[];
 }
 
+const TEMPERATURE = 0.05;
+
 export default async function (req: VercelRequest, res: VercelResponse) {
     const { messages = [], metas = [] } = req.body as RequestBody;
     const systemMessage: IMessage = {
@@ -56,21 +58,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         //  If there is no valid vega-lite specification or the instruction is not clear, you can recommend a chart from the given dataset and print in vega-lite JSON string.
     }
     try {
-        const url = `${process.env.BASE_URL}/openai/deployments/${process.env.DEPLOYMENT_NAME}/chat/completions?api-version=2023-03-15-preview`;
-        const response = await fetch(url, {
-            method: "POST",
-            // @ts-ignore
-            headers: {
-                "Content-Type": "application/json",
-                // @ts-ignore
-                "api-key": process.env.AZURE_OPENAI_KEY,
-            },
-            body: JSON.stringify({
-                messages: [systemMessage, ...messages],
-                temperature: 0.05,
-            }),
-        });
-        const data = (await response.json()) as IResponseData;
+        const data = await getCompletion([systemMessage, ...messages]);
         res.status(200).json({
             success: true,
             data: data,
@@ -82,4 +70,55 @@ export default async function (req: VercelRequest, res: VercelResponse) {
         });
     }
     return;
+}
+
+async function getCompletion(messages): Promise<IResponseData> {
+    if (preferAzureOpenAI()) {
+        return getAzureOpenAICompletion(messages);
+    }
+    return getOpenAICompletion(messages)
+}
+
+function preferAzureOpenAI(): boolean {
+    return !!(process.env.BASE_URL && process.env.DEPLOYMENT_NAME && process.env.AZURE_OPENAI_KEY);
+}
+
+async function getAzureOpenAICompletion(messages): Promise<IResponseData> {
+    const url = `${process.env.BASE_URL}/openai/deployments/${process.env.DEPLOYMENT_NAME}/chat/completions?api-version=2023-03-15-preview`;
+    const response = await fetch(url, {
+        method: "POST",
+        // @ts-ignore
+        headers: {
+            "Content-Type": "application/json",
+            // @ts-ignore
+            "api-key": process.env.AZURE_OPENAI_KEY,
+        },
+        body: JSON.stringify({
+            messages,
+            temperature: TEMPERATURE,
+        }),
+    });
+    const data = (await response.json()) as IResponseData;
+    return data;
+}
+
+
+async function getOpenAICompletion(messages): Promise<IResponseData> {
+    const url = "https://api.openai.com/v1/chat/completions";
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${process.env.OPENAI_KEY}`
+        },
+        body: JSON.stringify({
+            "model": "gpt-3.5-turbo",
+            messages: messages,
+            temperature: TEMPERATURE,
+            n: 1,
+        }),
+    });
+
+    const data = await response.json();
+    return data as IResponseData;
 }
