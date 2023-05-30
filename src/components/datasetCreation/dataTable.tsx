@@ -96,7 +96,7 @@ const DataTable: React.FC<DataTableProps> = (props) => {
                                         " whitespace-nowrap py-3.5 px-6 text-left text-xs font-semibold text-gray-900 dark:text-gray-50 sm:pl-6"
                                     }
                                 >
-                                    <b>{field.fid || field.fid}</b>
+                                    <b>{field.name || field.fid}</b>
                                     <div>
                                         <DropdownContext
                                             options={semanticTypeList}

@@ -2,38 +2,47 @@
     "fields": [
         {
             "fid": "Name",
+            "name": "Name",
             "semanticType": "nominal"
         },
         {
             "fid": "Miles_per_Gallon",
+            "name": "Miles per Gallon",
             "semanticType": "quantitative"
         },
         {
             "fid": "Cylinders",
+            "name": "Cylinders",
             "semanticType": "quantitative"
         },
         {
             "fid": "Displacement",
+            "name": "Displacement",
             "semanticType": "quantitative"
         },
         {
             "fid": "Horsepower",
+            "name": "Horsepower",
             "semanticType": "quantitative"
         },
         {
             "fid": "Weight_in_lbs",
+            "name": "Weight in lbs",
             "semanticType": "quantitative"
         },
         {
             "fid": "Acceleration",
+            "name": "Acceleration",
             "semanticType": "quantitative"
         },
         {
             "fid": "Year",
+            "name": "Year",
             "semanticType": "temporal"
         },
         {
             "fid": "Origin",
+            "name": "Origin",
             "semanticType": "nominal"
         }
     ],

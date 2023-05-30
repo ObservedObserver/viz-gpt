@@ -34,10 +34,11 @@ export default async function (req: VercelRequest, res: VercelResponse) {
             3. You should consider to aggregate the field if it is quantitative and the chart has a mark type of react, bar, line, area or arc.
             4. The available fields in the dataset and their types are:
             ${metas
-                .map((field) => `${field.fid} (${field.semanticType})`)
+                .map((field) => `${field.name} (${field.semanticType})`)
                 .join(", ")}
             `,
     };
+    // If the field is aggregated or transformed, the field title in spec should contains both the aggregate/transform info and the column title. For example, the title of field sales aggregated by mean should be "Mean(Sales)",
     if (messages.length === 0 || metas.length === 0) {
         res.status(400).json({
             success: false,

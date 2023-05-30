@@ -1,13 +1,13 @@
 {
     "fields": [
-      { "fid": "gender", "semanticType": "nominal" },
-      { "fid": "race/ethnicity", "semanticType": "nominal" },
-      { "fid": "parental level of education", "semanticType": "nominal" },
-      { "fid": "lunch", "semanticType": "nominal" },
-      { "fid": "test preparation course", "semanticType": "nominal" },
-      { "fid": "math score", "semanticType": "quantitative" },
-      { "fid": "reading score", "semanticType": "quantitative" },
-      { "fid": "writing score", "semanticType": "quantitative" }
+      { "fid": "gender", "name": "gender", "semanticType": "nominal" },
+      { "fid": "race/ethnicity", "name": "race/ethnicity", "semanticType": "nominal" },
+      { "fid": "parental level of education", "name": "parental level of education", "semanticType": "nominal" },
+      { "fid": "lunch", "name": "lunch", "semanticType": "nominal" },
+      { "fid": "test preparation course", "name": "test preparation course", "semanticType": "nominal" },
+      { "fid": "math score", "name": "math score", "semanticType": "quantitative" },
+      { "fid": "reading score", "name": "reading score", "semanticType": "quantitative" },
+      { "fid": "writing score", "name": "writing score", "semanticType": "quantitative" }
     ],
     "dataSource": [
       {

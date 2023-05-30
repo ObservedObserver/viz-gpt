@@ -11,8 +11,8 @@ export function WelcomePrompt(props: WelcomePromptProps) {
         metas.find((meta) => meta.semanticType === "temporal") ||
         metas.find((meta) => meta.semanticType === "nominal");
     const prompts: string[] = [
-        `Show the distribution of ${measure ? measure.fid : metas[0].fid}.`,
-        `How ${measure.fid} diffs in ${dimension.fid} ?`,
+        `Show the distribution of ${measure ? measure.name : metas[0].name}.`,
+        `How ${measure.name} diffs in ${dimension.name} ?`,
         `Recommend a random chart from this dataset for me.`,
     ];
     return (

@@ -25,7 +25,7 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
         <div className="border-2 border-zinc-100 dark:border-zinc-800 overflow-y-auto" ref={container} style={{ maxHeight: "80vh" }}>
             {messages.map((message, index) => {
                 if (message.role === "assistant") {
-                    const spec = getValidVegaSpec(message.content);
+                    const spec = getValidVegaSpec(message.content, dataset);
                     if (spec) {
                         return (
                             <div className="p-4 flex justify-top" key={index}>

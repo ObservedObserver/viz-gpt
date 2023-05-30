@@ -13,6 +13,7 @@ import DataTable from "./components/datasetCreation/dataTable";
 import { produce } from "immer";
 import { useNotification } from "./components/notify/useNotification";
 import { WelcomePrompt } from "./components/welcomePrompt";
+import { useMessageData } from "./utils/messageData";
 
 type DSItem =
     | {
@@ -142,6 +143,23 @@ const HomePage = function HomePage() {
         [notify]
     );
 
+    const datasetCreateHandler = useCallback((ds: IDataset) => {
+        const timeString = new Date().toISOString().replace(/:/g, "-");
+        const k = "custom-" + timeString; 
+        setDsList((l) => [
+            ...l,
+            {
+                name: "Custom Dataset" + l.length,
+                key: k,
+                dataset: ds,
+                type: "custom",
+            },
+        ]);
+        setDatasetKey(k);
+    }, []);
+
+    useMessageData(datasetCreateHandler);
+
     return (
         <div className="container mx-auto dark:bg-zinc-900 dark:text-gray-50">
             <div className="text-5xl font-extrabold flex justify-center mt-8">
@@ -165,21 +183,7 @@ const HomePage = function HomePage() {
                         }}
                     />
                 </div>
-                <DatasetCreation
-                    onDatasetCreated={(ds) => {
-                        const k = "custom" + dsList.length;
-                        setDsList((l) => [
-                            ...l,
-                            {
-                                name: "Custom Dataset" + l.length,
-                                key: k,
-                                dataset: ds,
-                                type: "custom",
-                            },
-                        ]);
-                        setDatasetKey(k);
-                    }}
-                />
+                <DatasetCreation onDatasetCreated={datasetCreateHandler} />
                 <div className="ml-4">
                     <span className="isolate inline-flex rounded-md shadow-sm">
                         <button
