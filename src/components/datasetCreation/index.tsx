@@ -5,6 +5,8 @@ import { FileReader } from "@kanaries/web-data-loader";
 import { inferDatasetMeta } from "../../utils/inferType";
 import Modal from "../modal";
 import DataTable from "./dataTable";
+import UpgradeGuide from "../upgradeGuide";
+import { hasAccess } from "../upgradeGuide/auth";
 
 interface DatasetCreationProps {
     onDatasetCreated: (dataset: IDataset) => void;
@@ -15,6 +17,7 @@ export default function DatasetCreation(props: DatasetCreationProps) {
     const fileRef = useRef<HTMLInputElement>(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [tmpDataset, setTmpDataset] = useState<IDataset | null>(null);
+    const showTrigger = useRef<(show: boolean) => void>(null);
 
     const fileUpload = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,14 +41,19 @@ export default function DatasetCreation(props: DatasetCreationProps) {
 
     return (
         <div>
+            <UpgradeGuide showTrigger={showTrigger} />
             <button
                 type="button"
                 className="ml-4 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={() => {
-                    fileRef.current?.click();
+                    if (showTrigger.current && !hasAccess()) {
+                        showTrigger.current(true)
+                    } else {
+                        fileRef.current?.click();
+                    }
                 }}
             >
-                Upload CSV
+                Upload CSV Data
             </button>
             <input
                 type="file"

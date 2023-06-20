@@ -171,7 +171,6 @@ const HomePage = function HomePage() {
             <p className="text-center my-2">
                 Make contextual data visualization with Chat Interface from tabular datasets.
             </p>
-
             <div className="flex items-end my-2">
                 <div>
                     <SelectMenu
