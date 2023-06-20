@@ -7,6 +7,7 @@ import Modal from "../modal";
 import DataTable from "./dataTable";
 import UpgradeGuide from "../upgradeGuide";
 import { hasAccess } from "../upgradeGuide/auth";
+import { track } from "@vercel/analytics";
 
 interface DatasetCreationProps {
     onDatasetCreated: (dataset: IDataset) => void;
@@ -48,6 +49,7 @@ export default function DatasetCreation(props: DatasetCreationProps) {
                 onClick={() => {
                     if (showTrigger.current && !hasAccess()) {
                         showTrigger.current(true)
+                        track("csvTrial", { path: window.location.href });
                     } else {
                         fileRef.current?.click();
                     }
