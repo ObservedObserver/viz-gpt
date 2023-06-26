@@ -14,6 +14,7 @@ import { produce } from "immer";
 import { useNotification } from "./components/notify/useNotification";
 import { WelcomePrompt } from "./components/welcomePrompt";
 import { useMessageData } from "./utils/messageData";
+import { GraphicWalker } from "@kanaries/graphic-walker";
 
 type DSItem =
     | {
