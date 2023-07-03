@@ -3,9 +3,10 @@
 https://github.com/ObservedObserver/viz-gpt/assets/22167673/a09032d3-f3c8-4cdf-ac14-89df8754fd9f
 
 
-Use GPT to generate visualization from datasets with natural language. You can edit the visualization in the context step by step to make it more precise without retyping the complex query.
+Use GPT to generate visualization from datasets with natural language. You can edit the visualization in the context step by step to make it more precise without retyping the complex query. VizGPT turns your text queries and chat into data visualization or charts.
 
 You can try it at [Playground](https://vizgpt.ai/)
+or vizGPT on Kanaries [kanaries-vizgpt](https://kanaries.net/home/products)
 
 #### Why VizGPT
 
@@ -15,6 +16,7 @@ Some text2viz tools accept natural language to generate the visualization. Howev
 
 With VizGPT, you can build visualizations step by step with a chat interface. You can edit/adjust visualizations in the context. It allows you to explore the data first without figuring out how to build complex visualization initially, especially when unfamiliar with the data.
 
+Besides, VizGPT focus on text based visual exploration. It allows users to discover new insights from visualization and ask new questions based on the insights they just find.
 
 ## Features & Roadmap
 + [x] Natural language to data visualization [vega-lite](https://github.com/vega/vega-lite)
