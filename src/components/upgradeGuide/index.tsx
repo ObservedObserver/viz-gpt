@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Modal from "../modal";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import { track } from "@vercel/analytics";
 
 const includedFeatures = ["Customized Datasets", "7 X 24 Support", "Connect to other Kanaries Apps", "Latest features"];
 
@@ -80,16 +81,20 @@ const UpgradeGuide: React.FC<UpgradeGuideProps> = props => {
                                                 Upgrade to Kanaries Plus
                                             </p>
                                             <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                                                <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-                                                    <span className="line-through text-4xl text-gray-600 dark:text-gray-300">$10</span> $5
-                                                </span>
+                                                <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">$10</span>
                                                 <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-gray-300">
                                                     USD
                                                 </span>
                                             </p>
                                             <a
-                                                href="https://kanaries.net/home/subscribe"
                                                 className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                                onClick={() => {
+                                                    track('kanaries_upgrade')
+                                                    setTimeout(() => {
+                                                        window.open("https://kanaries.net/home/subscribe", "_blank");
+                                                    }, 300)
+        
+                                                }}
                                             >
                                                 Get access
                                             </a>
