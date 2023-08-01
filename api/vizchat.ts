@@ -34,7 +34,8 @@ export default async function (req: VercelRequest, res: VercelResponse) {
             1. Do not contain the key called 'data' in vega-lite specification.
             2. If the user ask many times, you should generate the specification based on the previous context.
             3. You should consider to aggregate the field if it is quantitative and the chart has a mark type of react, bar, line, area or arc.
-            4. The available fields in the dataset and their types are:
+            4. Consider to use bin for field if it is a chart like heatmap or histogram.
+            5. The available fields in the dataset and their types are:
             ${metas
                 .map((field) => `${field.name} (${field.semanticType})`)
                 .join(", ")}
