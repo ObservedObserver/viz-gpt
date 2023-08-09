@@ -70,14 +70,14 @@ const VizChat: React.FC<VizChatProps> = ({ messages, dataset, onDelete, onUserFe
                                     </div>
                                 </div>
                                 <div className="grow pl-8 overflow-x-auto">
-                                    <p>{message.content}</p>
-                                    <DataTable
+                                    <p style={{ whiteSpace: 'pre-line' }}>{message.content}</p>
+                                    {/* <DataTable
                                         data={dataset.dataSource}
                                         metas={dataset.fields}
                                         onMetaChange={() => {
                                             console.log("meta changed");
                                         }}
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         );

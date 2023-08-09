@@ -1,6 +1,6 @@
 import { IDataset } from "../interface";
 
-export function matchQuote(str: string, left: string, right: string) {
+export function matchQuote(str: string, left: string, right: string): string | null {
     let stack = 0;
     let start = -1;
     let end = -1;

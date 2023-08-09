@@ -96,18 +96,19 @@ const HomePage = function HomePage() {
                         "{",
                         "}"
                     );
-                    if (spec) {
-                        setChat([...chat, latestQuery, res.choices[0].message]);
-                    } else {
-                        setChat([...chat, latestQuery, {
-                            role: 'assistant',
-                            content: 'There is no relative visualization for your query. Please check the dataset and try again.',
-                        }]);
-                        // throw new Error(
-                        //     "No visualization matches your instruction.\n" +
-                        //         res.choices[0].message.content
-                        // );
-                    }
+                    setChat([...chat, latestQuery, res.choices[0].message]);
+                    // if (spec) {
+                    //     setChat([...chat, latestQuery, res.choices[0].message]);
+                    // } else {
+                    //     setChat([...chat, latestQuery, {
+                    //         role: 'assistant',
+                    //         content: 'There is no relative visualization for your query. Please check the dataset and try again.',
+                    //     }]);
+                    //     // throw new Error(
+                    //     //     "No visualization matches your instruction.\n" +
+                    //     //         res.choices[0].message.content
+                    //     // );
+                    // }
                 }
             })
             .catch((err) => {

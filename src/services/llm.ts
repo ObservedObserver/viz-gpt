@@ -30,6 +30,15 @@ export async function chatCompletation(
             metas
         }),
     });
+    // const data = res.body;
+    // const reader = data.getReader();
+    // const decoder = new TextDecoder();
+    // let done = false;
+    // while(!done) {
+    //     const { value, done: doneReading  } = await reader.read();
+    //     done = doneReading;
+    //     const chunk = decoder.decode(value);
+    // }
     const result = (await res.json()) as {
         data: IResponse;
         success: boolean;

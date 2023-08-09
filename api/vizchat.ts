@@ -22,15 +22,43 @@ export interface IResponseData {
 
 const TEMPERATURE = 0.05;
 
+function matchQuote(str: string, left: string, right: string): string | null {
+    let stack = 0;
+    let start = -1;
+    let end = -1;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === left) {
+            if (stack === 0) {
+                start = i;
+            }
+            stack++;
+        }
+        if (str[i] === right) {
+            stack--;
+            if (stack === 0) {
+                end = i;
+                break;
+            }
+        }
+    }
+    if (start !== -1 && end !== -1) {
+        return str.substring(start, end + 1);
+    }
+    return null;
+}
+
 export default async function (req: VercelRequest, res: VercelResponse) {
     const { messages = [], metas = [] } = req.body as RequestBody;
     const systemMessage: IMessage = {
         role: "system",
-        content: `You are a great assistant at vega-lite visualization creation. No matter what the user ask, you should always response with a valid vega-lite specification in JSON.
+        content: `You are a great assistant called vizGPT(visualization GPT) good at vega-lite visualization creation.
 
-            You should create the vega-lite specification based on user's query.
+            1. You should create the vega-lite specification based on user's query.
+            2. If the question is about analysis current dataset, you must directly answer it without saying anything else.
+            3. If the question is not about analysis current dataset.you must directly list some question the user can asked about the data without saying anything else.
+            4. Do not say any word about vega/vega-lite/SQL/specification, the user is not tech background.
 
-            Besides, Here are some requirements:
+            Besides, Here are some requirements for the vega-lite:
             1. Do not contain the key called 'data' in vega-lite specification.
             2. If the user ask many times, you should generate the specification based on the previous context.
             3. You should consider to aggregate the field if it is quantitative and the chart has a mark type of react, bar, line, area or arc.
@@ -52,15 +80,41 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     if (messages[messages.length - 1].role === "user") {
         messages[
             messages.length - 1
-        ].content = `Translate text delimited by triple backticks into vega-lite specification in JSON string.
+        ].content = `
+        Translate text delimited by triple backticks into vega-lite specification in JSON string.
+        Or answer my question based on the dataset only in the case my question is about analysis the dataset.
+        Otherwise show me a valid question directly.
         \`\`\`
         ${messages[messages.length - 1].content}
         \`\`\`
+        
         `;
         //  If there is no valid vega-lite specification or the instruction is not clear, you can recommend a chart from the given dataset and print in vega-lite JSON string.
     }
+    console.log(messages)
     try {
-        const data = await getCompletion([systemMessage, ...messages]);
+        const pureMessage = messages.map(m => {
+            if (m.role === 'user') {
+                const q = matchQuote(m.content, '```', '```');
+                if (q !== null && q.length > 6) {
+                    return {
+                        ...m,
+                        content: q
+                    }
+                }
+                return m;
+            }
+            if (m.role === 'assistant') return m;
+            const spec = matchQuote(m.content, '{', '}');
+            if (spec !== null) {
+                return {
+                    ...m,
+                    content: JSON.stringify(spec)
+                }
+            }
+            return m
+        })
+        const data = await getCompletion([systemMessage, ...pureMessage]);
         res.status(200).json({
             success: true,
             data: data,
@@ -74,7 +128,7 @@ export default async function (req: VercelRequest, res: VercelResponse) {
     return;
 }
 
-async function getCompletion(messages): Promise<IResponseData> {
+async function getCompletion(messages: IMessage[]): Promise<IResponseData> {
     if (preferAzureOpenAI()) {
         return getAzureOpenAICompletion(messages);
     }
@@ -85,7 +139,7 @@ function preferAzureOpenAI(): boolean {
     return !!(process.env.BASE_URL && process.env.DEPLOYMENT_NAME && process.env.AZURE_OPENAI_KEY);
 }
 
-async function getAzureOpenAICompletion(messages): Promise<IResponseData> {
+async function getAzureOpenAICompletion(messages: IMessage[]): Promise<IResponseData> {
     const url = `${process.env.BASE_URL}/openai/deployments/${process.env.DEPLOYMENT_NAME}/chat/completions?api-version=2023-03-15-preview`;
     const response = await fetch(url, {
         method: "POST",
@@ -105,7 +159,7 @@ async function getAzureOpenAICompletion(messages): Promise<IResponseData> {
 }
 
 
-async function getOpenAICompletion(messages): Promise<IResponseData> {
+async function getOpenAICompletion(messages: IMessage[]): Promise<IResponseData> {
     const url = "https://api.openai.com/v1/chat/completions";
     const response = await fetch(url, {
         method: "POST",
