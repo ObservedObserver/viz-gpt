@@ -35,7 +35,7 @@ const UpgradeGuide: React.FC<UpgradeGuideProps> = props => {
                                     Analysis your datasets in VizGPT
                                 </h2>
                                 <p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-                                    Join the waitlist now to get 50% off coupon for the first month/year.
+                                Purchase an early bird special and receive a year of our Pro Plan plus a 50% recurring discount when we launch in November.
                                 </p>
                             </div>
                             <div className="mx-auto my-6 max-w-2xl rounded-3xl ring-1 ring-gray-200 dark:ring-gray-700 lg:mx-0 lg:flex lg:max-w-none">
@@ -71,28 +71,28 @@ const UpgradeGuide: React.FC<UpgradeGuideProps> = props => {
                                     <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 py-4 text-center ring-1 ring-inset ring-gray-900/5">
                                         <div className="mx-auto max-w-xs px-4">
                                             <p className="text-base font-semibold text-gray-600 dark:text-gray-300">
-                                                Upgrade to vizGPT Plus
+                                            Become a early bird of vizGPT Plus
                                             </p>
                                             <p className="mt-6 flex items-baseline justify-center gap-x-2">
-                                                <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">$8</span>
+                                                <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">$48</span>
                                                 <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600 dark:text-gray-300">
-                                                    USD
+                                                    USD/year
                                                 </span>
                                             </p>
                                             <a
                                                 className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                                 onClick={() => {
-                                                    track('kanaries_upgrade')
+                                                    track('vizgpt-plus-reserve')
                                                     setTimeout(() => {
-                                                        window.open("https://airtable.com/appbKMhOtPZzpkIJr/shrsG5XggpYh22kjo", "_blank");
+                                                        window.open("https://pay.kanaries.net/b/9AQ6qj6Jtd942EU4gg", "_blank");
                                                     }, 300)
         
                                                 }}
                                             >
-                                                Join the waitlist
+                                                Reserve
                                             </a>
                                             <p className="mt-6 text-xs leading-5 text-gray-600 dark:text-gray-400">
-                                                Join the waitlist now to get 50% off coupon for the first month/year.
+                                                Purchase an early bird special and receive a year of our Pro Plan plus a 50% recurring discount when we launch in November
                                             </p>
                                         </div>
                                     </div>
