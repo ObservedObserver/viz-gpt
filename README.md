@@ -28,6 +28,9 @@ Besides, VizGPT focus on text based visual exploration. It allows users to disco
 
 > vizGPT is now good at drawing data visualizations, not data transformations/preparation/computation. You can use other tools like Kanaries/RATH to prepare the data first and then use vizGPT to draw the visualization.
 
+## vizGPT + RAG
+I also build a RAG version of vizGPT, which can be accessed at [vizgpt.ai](https://vizgpt.ai), it contains RAG special for vega/vega-lite and SQL. 
+
 ## Chat to Viz Example
 <img src="https://github.com/ObservedObserver/viz-gpt/assets/22167673/3788bb64-9441-4c1a-b709-307f9bc47e3d" width="68%" alt="vizapt-1" />
 
