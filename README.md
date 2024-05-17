@@ -1,4 +1,4 @@
-# VizGPT: Make contextual data visualization with Chat Interface
+# VizGPT: AI Data Visualization, Make contextual data visualization with Chat Interface
 
 https://github.com/ObservedObserver/viz-gpt/assets/22167673/a09032d3-f3c8-4cdf-ac14-89df8754fd9f
 
