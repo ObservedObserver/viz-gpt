@@ -8,6 +8,12 @@ Use GPT to generate visualization from datasets with natural language. You can e
 You can try it at [Playground](https://vizgpt.ai/)
 or vizGPT on Kanaries [kanaries-vizgpt](https://kanaries.net/home/products)
 
+
+> [!TIP]
+> If you want more AI features, we also build [runcell](https://runcell.dev), an AI Code Agent in Jupyter that understands your code/data/cells and generate code, execute cells and take actions for you. It can be used in jupyter lab with `pip install runcell`
+
+https://github.com/user-attachments/assets/9ec64252-864d-4bd1-8755-83f9b0396d38
+
 #### Why VizGPT
 
 There exist lots of great visualization products in the world, such as Tableau, pygwalker. The traditional drag-and-drop visualization tool is hard to use for people unfamiliar with configs and viz/data transformations. For example, making a tableau heatmap requires bin transformations to both axes and then dragging the measure to color. It is hard for people unfamiliar with data visualization to make a heatmap.
